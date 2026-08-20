@@ -18,11 +18,6 @@ export class ConfirmationPage {
     await expect(this.completeHeader).toHaveText('Thank you for your order!');
     await expect(this.completeText).toBeVisible();
   }
-
-  /**
-   * Triggers SauceDemo's native "Generate PDF order" download and returns the
-   * Playwright Download handle so the caller can persist it locally.
-   */
   async triggerPdfDownload() {
     const [download] = await Promise.all([
       this.page.waitForEvent('download'),

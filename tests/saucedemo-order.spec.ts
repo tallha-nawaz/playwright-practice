@@ -5,19 +5,12 @@ import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
 import { ConfirmationPage } from '../pages/ConfirmationPage';
 import { saveDownloadAsPdf } from '../helpers/pdf';
-// Google Drive upload is disabled for now — see the commented step below.
-// To re-enable: uncomment these imports and the "Upload the confirmation
-// PDF to Google Drive" step, then configure .env per README.md.
-// import { uploadPdfToDrive } from '../helpers/googleDrive';
-// import { isGoogleDriveConfigured, env } from '../config/env';
 import { standardUser, customerInfo, productsToPurchase } from '../test-data/test-data';
 
 const ORDER_PDF_FILE_NAME = 'saucedemo-order.pdf';
 
 test.describe('SauceDemo end-to-end order flow', () => {
   test('logs in, sorts products, checks out, and saves the confirmation PDF locally', async ({ page, browserName }) => {
-    // This spec produces one shared PDF artifact. Restricting it to a single
-    // browser avoids parallel workers racing on the same output file.
     test.skip(browserName !== 'chromium', 'Order/PDF flow runs once, on Chromium only.');
 
     const loginPage = new LoginPage(page);
@@ -70,23 +63,5 @@ test.describe('SauceDemo end-to-end order flow', () => {
     });
 
     console.log(`[pdf] Order confirmation saved locally at: ${pdfPath}`);
-
-    // Google Drive upload — disabled for now, PDF is kept local only.
-    // Uncomment to re-enable once .env is configured per README.md.
-    // await test.step('Upload the confirmation PDF to Google Drive', async () => {
-    //   if (!isGoogleDriveConfigured()) {
-    //     test.info().annotations.push({
-    //       type: 'skipped',
-    //       description:
-    //         'Google Drive upload skipped: GOOGLE_SERVICE_ACCOUNT_KEY_PATH/JSON and GOOGLE_DRIVE_FOLDER_ID are not configured. See README.md.',
-    //     });
-    //     console.warn('[googleDrive] Skipping upload — credentials/folder not configured. See README.md.');
-    //     return;
-    //   }
-    //
-    //   const uploadResult = await uploadPdfToDrive(pdfPath, env.googleDriveFolderId as string);
-    //   expect(uploadResult.fileId, 'Google Drive should return a file ID for the uploaded PDF').toBeTruthy();
-    //   console.log(`[googleDrive] Uploaded order PDF: ${uploadResult.webViewLink}`);
-    // });
   });
 });

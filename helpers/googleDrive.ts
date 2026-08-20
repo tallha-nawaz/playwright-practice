@@ -10,12 +10,6 @@ export interface DriveUploadResult {
   webViewLink: string;
 }
 
-/**
- * Builds an authenticated Drive client from a service account.
- * Credentials come exclusively from environment configuration — either a
- * path to a key file (GOOGLE_SERVICE_ACCOUNT_KEY_PATH) or the raw key JSON
- * (GOOGLE_SERVICE_ACCOUNT_KEY_JSON, handy for CI secrets). Never hard-coded.
- */
 function buildDriveClient() {
   if (env.googleServiceAccountKeyJson) {
     const credentials = JSON.parse(env.googleServiceAccountKeyJson);
@@ -38,12 +32,7 @@ function buildDriveClient() {
   );
 }
 
-/**
- * Uploads a local PDF file to the configured Google Drive folder and
- * verifies the upload by re-fetching the created file's metadata.
- * Works for both "My Drive" folders (shared with the service account
- * email) and Shared Drive folders (supportsAllDrives: true).
- */
+
 export async function uploadPdfToDrive(filePath: string, folderId: string): Promise<DriveUploadResult> {
   if (!fs.existsSync(filePath)) {
     throw new Error(`Cannot upload to Google Drive: file not found at ${filePath}`);

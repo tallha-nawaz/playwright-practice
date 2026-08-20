@@ -3,11 +3,6 @@ import path from 'path';
 import type { Download } from '@playwright/test';
 
 export const PDF_OUTPUT_DIR = path.resolve(__dirname, '..', 'artifacts');
-
-/**
- * Saves a Playwright Download to disk under artifacts/ and verifies it is a
- * non-empty, well-formed PDF before returning its path.
- */
 export async function saveDownloadAsPdf(download: Download, fileName: string): Promise<string> {
   fs.mkdirSync(PDF_OUTPUT_DIR, { recursive: true });
   const destinationPath = path.join(PDF_OUTPUT_DIR, fileName);
