@@ -6,3 +6,11 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Generated order PDFs
+/artifacts/
+
+# Secrets — never commit real credentials
+.env
+*.env.local
+google-service-account*.json

@@ -1,15 +1,26 @@
 {
   "name": "playwrite-practice",
   "version": "1.0.0",
-  "description": "",
+  "description": "SauceDemo checkout automation with Playwright + TypeScript, PDF confirmation capture, and Google Drive upload.",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.62.1",
-    "@types/node": "^26.2.0"
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "google-auth-library": "^10.9.1",
+    "googleapis": "^159.0.0"
   }
 }
